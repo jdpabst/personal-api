@@ -1,3 +1,7 @@
+const skills = require('../skillz');
+var secrets = require('../secrets.js');
+
+
 module.exports = {
 
     addHeaders: function(req, res, next) {
@@ -13,6 +17,24 @@ module.exports = {
 
     next();
   },
+
+generateId: function(req, res, next){
+    const id = skillz.length + 1;
+    req.body.id = id;
+
+    next();
+},
+
+verifyUser: function(request, response, next){
+    if(request.params.username === 'jessica' && request.params.password === 'ilovecats'){
+        next();
+    } else {
+        response(403).send("wrong username or password")
+    }
+
+    next();
+}
+
 
 }
 

@@ -1,6 +1,6 @@
 var user = require('../user.js');
 var skillz = require('../skillz.js');
-
+var secrets = require('../secrets.js');
 
 exports.getName = function(){
     return user.name;
@@ -121,4 +121,28 @@ exports.addFamily = function(request, response){
 exports.addRestaurant = function(request, response){
     var newRestaurantObj = request.body.newRestaurantObj;
     user.restaurants.push(newRestaurantObj);
+}
+
+exports.getSkillz = function(request, response){
+    var skills = skillz.skills.slice();
+    var experience = request.query.experience;
+    if(experience){
+        for(var i = skills.length - 1; i >= 0; i--){
+            if(experience != skills[i].experience){
+                skills.splice(i, 1);
+            }
+        }
+
+    }
+        return { skillz : skills }
+    
+}
+
+exports.addSkill = function(request, response){
+    let newSkill = request.body.newSkill;
+    skills.push(newSkill);
+}
+
+exports.getSecrets = function(request, response){
+    return secrets;
 }
