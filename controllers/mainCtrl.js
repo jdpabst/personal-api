@@ -2,12 +2,12 @@ var user = require('../user.js');
 var skillz = require('../skillz.js');
 var secrets = require('../secrets.js');
 
-exports.getName = function(){
-    return user.name;
+exports.getName = function(request, response){
+    response(200).json(user.name);
 };
 
-exports.getLocation = function(){
-    return user.location;
+exports.getLocation = function(request, response){
+    response(200).json(user.location);
 };
 
 exports.getOccupations = function(request, response){
@@ -19,17 +19,17 @@ exports.getOccupations = function(request, response){
             return user.occupations.sort();
         } 
     }
-    return { name: user.occupations };
+    response(200).json(user.occupations );
 };
 
-exports.getLatestOccupation = function(){
+exports.getLatestOccupation = function(request, response){
     var latestOcc = user.occupations;
     var sliced = latestOcc.slice(latestOcc.length - 1, 1);
-    return sliced;
+    response(200).json(sliced);
 };
 
-exports.getHobbies = function(){
-    return { hobbies : user.hobbies };   
+exports.getHobbies = function(request, response){
+    response(200).json(user.hobbies);   
 };
 
 exports.getHobbiesType = function(request, response, next){
@@ -38,7 +38,7 @@ exports.getHobbiesType = function(request, response, next){
     var result = arr.filter(function(value){
         return (value == type)
     })
-    return result;
+    response(200).json(result);
 };
 
 exports.getFamily = function(request, response){
@@ -50,10 +50,10 @@ exports.getFamily = function(request, response){
                 family.splice(i, 1);
             }
         }
-       return { family: family}
+       response(200).json(family)
 
     } else {
-         return {family : user.family};
+         response(200).json(user.family);
     }
    
     
@@ -65,7 +65,7 @@ exports.getFamilyGender = function(request, response){
     var result = arr.filter(function(value){
         return (value === gender);
     })
-    return result;
+    response(200).json(result);
 }
 
 exports.getRestaurants = function(request, response){
@@ -77,10 +77,10 @@ exports.getRestaurants = function(request, response){
                 restaurants.splice(i, 1);
             }
         }
-     return { restaurants : restaurants }
+     response(200).json(restaurants);
 
     } else {
-        return { restaurants : user.restaurants }
+        response(200).json(user.restaurants)
     }
 }
 
@@ -90,37 +90,43 @@ exports.getRestaurantName = function(request, response){
     var result = arr.filter(function(value){
         return (value === favRestaurant)
     })
-    return result;
+    response(200).json(result);
 }
 
 exports.changeName = function(request, response){
     var newName = request.body.newName;
     user.name = newName;
+    response(200).send('OK');
 }
 
 exports.changeLocation = function(request, response){
     var newLocation = request.body.newLocation;
     user.location = newLocation;
+    response(200).send('OK');
 }
 
 exports.addHobby = function(request, response){
     var newHobbyObj = request.body.newHobbyObj;
     user.hobbies.push(newHobbyObj);
+    response(200).send('OK');
 }
 
 exports.addOccupation = function(request, response){
     var newOccupation = request.body.newOccupation;
     user.occupations.push(newOccupation);
+    response(200).send('OK');
 }
 
 exports.addFamily = function(request, response){
     var newPersonObj = request.body.newPersonObj;
     user.family.push(newPersonObj);
+    response(200).send('OK');
 }
 
 exports.addRestaurant = function(request, response){
     var newRestaurantObj = request.body.newRestaurantObj;
     user.restaurants.push(newRestaurantObj);
+    response(200).send('OK');
 }
 
 exports.getSkillz = function(request, response){
@@ -134,15 +140,16 @@ exports.getSkillz = function(request, response){
         }
 
     }
-        return { skillz : skills }
+       response(200).json(skills)
     
 }
 
 exports.addSkill = function(request, response){
     let newSkill = request.body.newSkill;
     skills.push(newSkill);
+    response(200).send('OK');
 }
 
 exports.getSecrets = function(request, response){
-    return secrets;
+    response(200).json(secrets);
 }
