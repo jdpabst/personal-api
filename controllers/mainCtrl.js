@@ -3,11 +3,11 @@ var skillz = require('../skillz.js');
 var secrets = require('../secrets.js');
 
 exports.getName = function(request, response){
-    response(200).json(user.name);
+    response.status(200).json(user.name);
 };
 
 exports.getLocation = function(request, response){
-    response(200).json(user.location);
+    response.status(200).json(user.location);
 };
 
 exports.getOccupations = function(request, response){
@@ -19,17 +19,17 @@ exports.getOccupations = function(request, response){
             return user.occupations.sort();
         } 
     }
-    response(200).json(user.occupations );
+    response.status(200).json(user.occupations );
 };
 
 exports.getLatestOccupation = function(request, response){
     var latestOcc = user.occupations;
     var sliced = latestOcc.slice(latestOcc.length - 1, 1);
-    response(200).json(sliced);
+    response.status(200).json(sliced);
 };
 
 exports.getHobbies = function(request, response){
-    response(200).json(user.hobbies);   
+    response.status(200).json(user.hobbies);   
 };
 
 exports.getHobbiesType = function(request, response, next){
@@ -38,7 +38,7 @@ exports.getHobbiesType = function(request, response, next){
     var result = arr.filter(function(value){
         return (value == type)
     })
-    response(200).json(result);
+    response.status(200).json(result);
 };
 
 exports.getFamily = function(request, response){
@@ -50,10 +50,10 @@ exports.getFamily = function(request, response){
                 family.splice(i, 1);
             }
         }
-       response(200).json(family)
+       response.status(200).json(family)
 
     } else {
-         response(200).json(user.family);
+         response.status(200).json(user.family);
     }
    
     
@@ -65,7 +65,7 @@ exports.getFamilyGender = function(request, response){
     var result = arr.filter(function(value){
         return (value === gender);
     })
-    response(200).json(result);
+    response.status(200).json(result);
 }
 
 exports.getRestaurants = function(request, response){
@@ -77,10 +77,10 @@ exports.getRestaurants = function(request, response){
                 restaurants.splice(i, 1);
             }
         }
-     response(200).json(restaurants);
+     response.status(200).json(restaurants);
 
     } else {
-        response(200).json(user.restaurants)
+        response.status(200).json(user.restaurants)
     }
 }
 
@@ -90,43 +90,43 @@ exports.getRestaurantName = function(request, response){
     var result = arr.filter(function(value){
         return (value === favRestaurant)
     })
-    response(200).json(result);
+    response.status(200).json(result);
 }
 
 exports.changeName = function(request, response){
     var newName = request.body.newName;
     user.name = newName;
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.changeLocation = function(request, response){
     var newLocation = request.body.newLocation;
     user.location = newLocation;
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.addHobby = function(request, response){
     var newHobbyObj = request.body.newHobbyObj;
     user.hobbies.push(newHobbyObj);
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.addOccupation = function(request, response){
     var newOccupation = request.body.newOccupation;
     user.occupations.push(newOccupation);
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.addFamily = function(request, response){
     var newPersonObj = request.body.newPersonObj;
     user.family.push(newPersonObj);
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.addRestaurant = function(request, response){
     var newRestaurantObj = request.body.newRestaurantObj;
     user.restaurants.push(newRestaurantObj);
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.getSkillz = function(request, response){
@@ -140,16 +140,16 @@ exports.getSkillz = function(request, response){
         }
 
     }
-       response(200).json(skills)
+       response.status(200).json(skills)
     
 }
 
 exports.addSkill = function(request, response){
     let newSkill = request.body.newSkill;
     skills.push(newSkill);
-    response(200).send('OK');
+    response.status(200).send('OK');
 }
 
 exports.getSecrets = function(request, response){
-    response(200).json(secrets);
+    response.status(200).json(secrets);
 }

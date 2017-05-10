@@ -32,3 +32,8 @@ app.post('/occupations', mainCtrl.addOccupation);
 app.post('/family', mainCtrl.addFamily);
 app.post('/retaurants', mainCtrl.addRestaurant);
 app.post('/skillz', middleware.generateId, mainCtrl.addSkill);
+
+
+app.listen(3000, function(){
+    console.log('listening on port 3000')
+})
